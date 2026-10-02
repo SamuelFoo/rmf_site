@@ -397,3 +397,55 @@ fn finish_path(
 
     Ok(())
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::site::{Dependents, ZoneBundle};
+    use bevy::ecs::system::SystemState;
+
+    #[test]
+    fn zone_cancel_removes_only_provisional_anchors() {
+        let mut world = World::new();
+        let shared = world.spawn(Dependents::default()).id();
+        let provisional = world.spawn(Dependents::default()).id();
+        let cursor = world.spawn(Dependents::default()).id();
+        let other = world.spawn_empty().id();
+        let zone = world
+            .spawn((
+                ZoneBundle::from(Path(vec![shared, provisional, cursor])),
+                Pending,
+            ))
+            .id();
+        for anchor in [shared, provisional, cursor] {
+            world.get_mut::<Dependents>(anchor).unwrap().insert(zone);
+        }
+        world.get_mut::<Dependents>(shared).unwrap().insert(other);
+        let mut creation = CreatePath::new(
+            |path, commands| {
+                commands.insert((ZoneBundle::from(path), Pending));
+                Ok(())
+            },
+            3,
+            false,
+            true,
+            AnchorScope::General,
+        );
+        creation.path = Some(zone);
+        creation.provisional_anchors.insert(provisional);
+        let mut state: SystemState<(Query<&mut Path<Entity>>, Commands)> =
+            SystemState::new(&mut world);
+        let (mut paths, mut commands) = state.get_mut(&mut world);
+        finish_path(&mut creation, &mut paths, &mut commands).unwrap();
+        state.apply(&mut world);
+        assert!(world.get_entity(zone).is_err());
+        assert!(world.get_entity(provisional).is_err());
+        assert!(world.get_entity(cursor).is_ok());
+        assert_eq!(
+            &world.get::<Dependents>(shared).unwrap().0,
+            &HashSet::from([other])
+        );
+        assert!(!world.get::<Dependents>(cursor).unwrap().contains(&zone));
+        assert!(creation.path.is_none());
+    }
+}
