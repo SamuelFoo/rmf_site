@@ -1,0 +1,192 @@
+{
+  "format_version": "0.1",
+  "properties": {
+    "name": "Zones"
+  },
+  "levels": {
+    "100": {
+      "properties": {
+        "name": "L1",
+        "elevation": 0.0
+      },
+      "anchors": {
+        "101": {
+          "Translate2D": [
+            -5,
+            -4
+          ]
+        },
+        "102": {
+          "Translate2D": [
+            5,
+            -4
+          ]
+        },
+        "103": {
+          "Translate2D": [
+            5,
+            4
+          ]
+        },
+        "104": {
+          "Translate2D": [
+            -5,
+            4
+          ]
+        },
+        "105": {
+          "Translate2D": [
+            -3,
+            -2
+          ]
+        },
+        "106": {
+          "Translate2D": [
+            2,
+            -2
+          ]
+        },
+        "107": {
+          "Translate2D": [
+            0,
+            0
+          ]
+        },
+        "108": {
+          "Translate2D": [
+            2,
+            2
+          ]
+        },
+        "109": {
+          "Translate2D": [
+            -3,
+            2
+          ]
+        }
+      },
+      "floors": {
+        "110": {
+          "anchors": [
+            101,
+            102,
+            103,
+            104
+          ]
+        }
+      },
+      "zones": {
+        "111": {
+          "anchors": [
+            105,
+            106,
+            107,
+            108,
+            109
+          ],
+          "name": "Concave corridor"
+        },
+        "112": {
+          "anchors": [
+            106,
+            102,
+            103
+          ],
+          "name": "Triangle sharing anchors"
+        }
+      }
+    },
+    "200": {
+      "properties": {
+        "name": "L2",
+        "elevation": 4.5
+      },
+      "anchors": {
+        "201": {
+          "Translate2D": [
+            -5,
+            -4
+          ]
+        },
+        "202": {
+          "Translate2D": [
+            5,
+            -4
+          ]
+        },
+        "203": {
+          "Translate2D": [
+            5,
+            4
+          ]
+        },
+        "204": {
+          "Translate2D": [
+            -5,
+            4
+          ]
+        },
+        "205": {
+          "Translate2D": [
+            -3,
+            -2
+          ]
+        },
+        "206": {
+          "Translate2D": [
+            2,
+            -2
+          ]
+        },
+        "207": {
+          "Translate2D": [
+            0,
+            0
+          ]
+        },
+        "208": {
+          "Translate2D": [
+            2,
+            2
+          ]
+        },
+        "209": {
+          "Translate2D": [
+            -3,
+            2
+          ]
+        }
+      },
+      "floors": {
+        "210": {
+          "anchors": [
+            201,
+            202,
+            203,
+            204
+          ]
+        }
+      },
+      "zones": {
+        "211": {
+          "anchors": [
+            205,
+            206,
+            207,
+            208,
+            209
+          ],
+          "name": "Concave corridor"
+        },
+        "212": {
+          "anchors": [
+            206,
+            202,
+            203
+          ],
+          "name": "Triangle sharing anchors"
+        }
+      }
+    }
+  }
+}
